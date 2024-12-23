@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        header {
+            background-color: #ff5722;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #e64a19;
+        }
+
+        main {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        main h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #ff5722;
+        }
+
+        .shop-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-card .content {
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .product-card .content h3 {
+            font-size: 1.2rem;
+            margin: 0 0 0.5rem 0;
+            color: #333;
+        }
+
+        .product-card .content p {
+            font-size: 1rem;
+            color: #555;
+            margin: 0 0 1rem 0;
+        }
+
+        .product-card .content .price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ff5722;
+        }
+
+        .product-card .content button {
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .product-card .content button:hover {
+            background-color: #e64a19;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Shop</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/blog">Blog</a>
+            <a href="/shop">Shop</a>
+        </nav>
+    </header>
+    <main>
+        <h1>Our Products</h1>
+        <div class="shop-container">
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x200" alt="Product 1">
+                <div class="content">
+                    <h3>Product Name 1</h3>
+                    <p>A short description of the product. High-quality and reliable.</p>
+                    <p class="price">$29.99</p>
+                    <button>Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x200" alt="Product 2">
+                <div class="content">
+                    <h3>Product Name 2</h3>
+                    <p>A short description of the product. Affordable and durable.</p>
+                    <p class="price">$19.99</p>
+                    <button>Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x200" alt="Product 3">
+                <div class="content">
+                    <h3>Product Name 3</h3>
+                    <p>A short description of the product. Stylish and functional.</p>
+                    <p class="price">$39.99</p>
+                    <button>Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 My Website. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

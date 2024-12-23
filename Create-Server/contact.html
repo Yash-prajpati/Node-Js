@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Contact</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
+            background-color: #f5f7fa;
             color: #333;
         }
 
         header {
-            background-color: #4CAF50;
+            background-color: #007BFF;
             color: white;
             padding: 1rem 2rem;
             display: flex;
@@ -42,7 +42,7 @@
         }
 
         nav a:hover {
-            background-color: #45a049;
+            background-color: #0056b3;
         }
 
         main {
@@ -53,6 +53,39 @@
         main h1 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            color: #007BFF;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form button {
+            width: 100%;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .contact-form button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #0056b3;
         }
 
         footer {
@@ -68,7 +101,7 @@
 </head>
 <body>
     <header>
-        <h1>My Website</h1>
+        <h1>Contact Us</h1>
         <nav>
             <a href="/">Home</a>
             <a href="/about">About</a>
@@ -78,8 +111,15 @@
         </nav>
     </header>
     <main>
-        <h1>Welcome to the Home Page</h1>
-        <p>This is a simple, modern, and responsive web page. Use the navigation menu to explore the site!</p>
+        <h1>We'd love to hear from you!</h1>
+        <div class="contact-form">
+            <form>
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
     </main>
     <footer>
         <p>&copy; 2024 My Website. All Rights Reserved.</p>
