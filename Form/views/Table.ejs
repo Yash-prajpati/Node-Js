@@ -3,46 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>View Users</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #111;
+            color: #eee;
+            margin: 0;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center;     /* Center vertically */
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            width: 80%; /* Adjust as needed */
+            max-width: 900px; /* Set a maximum width */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #9370db;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #333;
+            text-align: left; /* Align text to the left within cells */
+        }
+
+        th {
+            background-color: #222;
+            color: #eee;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) { /* Style even rows for better readability */
+            background-color: #222;
+        }
+
+        button {
+            background-color: #4b0082;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 2px; /* Add a little margin around buttons */
+        }
+
+        button:hover {
+            background-color: #6a5acd;
+        }
+
+        a {
+            color: #9370db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #b0e0e6;
+        }
+        .add-link{
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #9370db; /* Purple link */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .add-link:hover{
+            text-decoration: underline;
+            color:#b0e0e6;
+        }
+    </style>
 </head>
 <body>
-    
-
-
-   <div align="center">
-    <h1>View page</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>action</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            <% record.map((val,i)=>{ %>
-
+    <div class="container">
+        <h1>View Users</h1>
+        <table>
+            <thead>
                 <tr>
-
-                    <td><%= ++i %></td>
-                    <td><%= val.name %></td>
-                    <td><%= val.phone %></td>
-                    <td>
-                        <button><a href="/deletuser?deletId=<%= val.id %>">delet</a></button>
-                        <button><a href="/edituser?editId=<%= val.id %>">edit</a></button>
-                    
-                    </td>
-    
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Action</th>
                 </tr>
-
-          <%  }) %>
-
-        </tbody>
-    </table>
-    <a href="/form">add</a>
-   </div>
-
+            </thead>
+            <tbody>
+                <% record.map((val, i) => { %>
+                    <tr>
+                        <td><%= ++i %></td>
+                        <td><%= val.name %></td>
+                        <td><%= val.phone %></td>
+                        <td>
+                            <button><a href="/deletuser?deletId=<%= val.id %>">Delete</a></button>
+                            <button><a href="/edituser?editId=<%= val.id %>">Edit</a></button>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+        <a class="add-link" href="/form">Add User</a>
+    </div>
 </body>
 </html>
