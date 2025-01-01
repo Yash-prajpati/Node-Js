@@ -12,7 +12,7 @@
             margin: 0;
             display: flex;
             justify-content: center; /* Center horizontally */
-            align-items: center;     /* Center vertically */
+            align-items: center;  /* Center vertically */
             min-height: 100vh;
         }
 
@@ -78,7 +78,8 @@
             text-decoration: underline;
             color: #b0e0e6;
         }
-        .add-link{
+
+        .add-link {
             display: block;
             text-align: center;
             margin-top: 15px;
@@ -86,39 +87,42 @@
             text-decoration: none;
             transition: color 0.3s ease;
         }
-        .add-link:hover{
+
+        .add-link:hover {
             text-decoration: underline;
-            color:#b0e0e6;
+            color: #b0e0e6;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>View Users</h1>
+        <h1>View Tasks</h1>
         <table>
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Name</th>
-                    <th>Phone</th>
+                    <th>Task</th>
+                    <th>Date</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <% record.map((val, i) => { %>
-                    <tr>
-                        <td><%= ++i %></td>
-                        <td><%= val.name %></td>
-                        <td><%= val.phone %></td>
-                        <td>
-                            <button><a href="/deletuser?deletId=<%= val.id %>">Delete</a></button>
-                            <button><a href="/edituser?editId=<%= val.id %>">Edit</a></button>
-                        </td>
-                    </tr>
+                <tr>
+                    <td><%= ++i %></td>
+                    <td><%= val.name %></td>
+                    <td><%= val.phone %></td>
+                    <td><%= val.status %></td>
+                    <td>
+                        <button><a href="/deletuser?deletId=<%= val.id %>">Delete</a></button>
+                        <button><a href="/edituser?editId=<%= val.id %>">Edit</a></button>
+                    </td>
+                </tr>
                 <% }) %>
             </tbody>
         </table>
-        <a class="add-link" href="/form">Add User</a>
+        <a class="add-link" href="/form">Add Task</a>
     </div>
 </body>
 </html>

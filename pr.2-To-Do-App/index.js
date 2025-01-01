@@ -17,11 +17,13 @@ app.get('/form',(req,res)=>{
 });
 
 app.post('/adduser',(req,res)=>{
-    const {username,userphone}=req.body;
+    const {username,userphone,status}=req.body;
     let obj={
         id : Math.floor(Math.random()*10000),
         name:username,
-        phone:userphone
+        phone:userphone,
+        status:status
+   
     }
     record.push(obj);
     console.log("user sucesfully register");
@@ -44,11 +46,12 @@ app.get('/edituser',(req,res)=>{
 })
 
 app.post('/updateuser',(req,res)=>{
-    const {editid,username,userphone}=req.body;
+    const {editid,username,userphone,status}=req.body;
     let up = record.map((val)=>{
         if(val.id==editid){
             val.name= username;
-            val.phone=userphone
+            val.phone=userphone;
+            val.status=status;
         }
         return val;
     })
