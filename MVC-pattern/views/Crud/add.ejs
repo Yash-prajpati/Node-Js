@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <form action="/crud/insertRecord" method="post" >
+        <table>
+            <tr>
+                <td>First Name:</td>
+                <td><input type="text" name="name"></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><input type="text" name="email"></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="text" name="password"></td>
+            </tr>
+            <tr>
+                <td>Gender:</td>
+                <td><input type="text" name="gender"></td>
+            </tr>
+            <tr>
+                <td>Hobby:</td>
+                <td><input type="text" name="hobby"></td>
+            </tr>
+            <tr>
+                <td>City:</td>
+               <td>
+                <select name="city" id="">
+                    <option value="">select</option>                    
+                    <option value="surat">surat</option>
+                    <option value="mumbai">mumbai</option>
+                    <option value="delhi">delhi</option>
+
+
+                </select>
+               </td>       
+            </tr>
+            <tr>
+                <td></td>
+                <td><a href="">submit</a></td>
+            </tr>
+        </table>
+    </form>
+
+    <a href="/Crud/view">view</a>
+
+</body>
+</html>

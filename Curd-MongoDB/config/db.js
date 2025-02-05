@@ -1,19 +1,15 @@
-const { default: mongoose } = require("mongoose")
+const mongoose = require('mongoose');
 
-const mongoose = require("mongoose");
+mongoose.connect('mongodb://localhost/crud');
 
-mongoose.connect(`mongodb://localhost/mydatabase`);
+const db = mongoose.connection;
 
-const db=mongoose.connection;
-
-db.on("connected",(err)=>{
-    if(err){
+db.on("connected", (err) => {
+    if (err) {
         console.log(err);
-        return false;
-        
+        return false
     }
-    console.log(`database sucessfully connected`);
-    
+    console.log('database successfully connected');
 })
 
 module.exports = db;
