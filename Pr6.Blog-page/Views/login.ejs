@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-container h2 {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            padding: 12px;
+            border: none;
+            outline: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            transform: scale(1.02);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .login-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 75, 75, 0.4);
+        }
+
+        .form-text a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .form-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form action="/loginuser" method="post">
+            <div class="mb-3">
+                <input type="text" name="emailorphone" class="form-control" placeholder="Email or Phone" required>
+            </div>
+            <div class="mb-3">
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
+            </div>
+            <button type="submit" class="login-btn">Login</button>
+            <p class="form-text text-center mt-3">Don't have an account? <a href="/">Register Now</a></p>
+        </form>
+    </div>
+</body>
+</html>
