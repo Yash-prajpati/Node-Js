@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - BlogCanvas</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+        *, *::before, *::after {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body, input {
+            font-family: "Poppins", sans-serif;
+        }
+
+        main {
+            width: 100%;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .box {
+            width: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .heading h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #fff;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 1rem;
+        }
+
+        .input-wrap {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            color: #fff;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .input-field:focus {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .sign-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #ff7eb3, #ff758c);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease, transform 0.2s;
+            box-shadow: 0 4px 10px rgba(255, 117, 140, 0.3);
+        }
+
+        .sign-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .toggle {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            margin-top: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .toggle:hover {
+            color: #ff7eb3;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="box">
+            <div class="heading">
+                <h2>🔐 Login</h2>
+            </div>
+            <form action="/loginUser" autocomplete="off" method="post">
+                <div class="input-wrap">
+                    <input type="text" name="email" class="input-field" required placeholder="📧 Email">
+                </div>
+                <div class="input-wrap">
+                    <input type="password" name="password" class="input-field" required placeholder="🔑 Password">
+                </div>
+                <input type="submit" value="🚀 Login" class="sign-btn">
+            </form>
+            <a href="/register" class="toggle">🔓 Don't have an account? Register</a>
+        </div>
+    </main>
+</body>
+</html>
