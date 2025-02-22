@@ -6,19 +6,11 @@ app.set('view engine','ejs');
 
 const path = require('path');
 
+app.use('/',require('./routes/indexRoutes'))
+
+
+
 app.use('/',express.static(path.join(__dirname,'public')))
-
-app.get('/',(req,res)=>{
-    return res.render('login');
-})
-
-app.get('/dacebord',(req,res)=>{
-    return res.render('dacebord');
-})
-
-app.get('/register',(req,res)=>{
-    return res.render('register');
-})
 
 
 app.listen(port,(err)=>{

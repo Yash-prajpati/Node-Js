@@ -25,13 +25,13 @@ const fileupload = multer({ storage: st }).single('image');
 
 routes.get('/', LoginPage);
 routes.get('/register', RegisterPage);
-routes.get('/dashboard', DashboardPage);
+routes.get('/dashboard', passport.checkUser ,DashboardPage);
 routes.post('/registerUser' , registerUser);
 routes.post('/loginUser', passport.authenticate('local', { failureRedirect: '/' }), loginUser);
 routes.post('/logout', Logout);
 
 
-routes.get('/add', AddBlog);
+routes.get('/add',passport.checkUser,AddBlog);
 routes.post('/insertblog', fileupload, insertBlog);
 routes.get('/deleteblog',  deleteBlog);
 routes.get('/editblog', editBlog);
