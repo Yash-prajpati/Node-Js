@@ -1,0 +1,90 @@
+<%- include('../header') %>
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+  
+    <div class="row mt-3">
+      <div class="col-lg-6">
+        <% if(locals.message?.success) { %>
+          <div class="alert alert-success" id="success-message">
+              <%= locals.message?.success %>
+          </div>
+          <% } %>
+         <div class="card">
+         
+            <form method="post"  action="/exsubcategory/insertexsubcategory">
+              <input type="hidden" name="editid" value="<%= single?.id %>" />
+              <div class="card-body">
+                <div class="card-title">SubCategory</div>
+                <hr>
+           <div class="form-group">
+            <label for="fname">Category</label>
+            <div class="col-sm-9" style="padding: 0;">
+                <select id="category" name="category" class="form-control" style="width: 557px;" onchange="categoryChange()">
+                    <option>---select category---</option>
+                    <% category.map((val) => { %>
+                        <option <% if (val?.category == single?.categoryId?.category) { %> selected <% } %> value="<%= val?.id %>">
+                            <%= val?.category %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
+           </div>
+  
+           <div class="form-group">
+            <label for="fname">SubCategory</label>
+            <div class="col-sm-9">
+                <select name="subcategory" id="subcategory" class="form-control">
+                    <option>---select subcategory---</option>
+                </select>
+            </div>
+        </div>
+
+           
+           <div class="form-group">
+            <label for="fname">ExSubCategory</label>
+            <input type="text" value="<%= single?.exsubcategory %>" name="exsubcategory"
+                   class="form-control" placeholder="ExSubcategory">
+        </div>
+       
+           <div class="form-group" style="padding-left: 20px;">
+            <button type="submit" class="btn btn-light px-5">Submit</button>
+          </div>
+          </form>
+         </div>
+         </div>
+      </div>
+  
+      
+    </div><!--End Row-->
+  
+    <!--start overlay-->
+          <div class="overlay toggle-menu"></div>
+        <!--end overlay-->
+  
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- complete code this code is work -->
+    <script>
+        const categoryChange = () => {
+            let catid = document.getElementById('category').value;
+            let selectedSubcategory = "<%= single?.subcategoryId?._id %>"; // Get selected subcategory ID
+            $.get(`/exsubcategory/ajaxcategorywiserecord?categoryid=${catid}`, function (res) {
+                if (res.success) {
+                    let options = `<option value="">--- Select Subcategory ---</option>`;
+                    res.category.forEach((val) => {
+                        options += `<option value="${val._id}" ${val._id === selectedSubcategory ? "selected" : ""}>
+                        ${val.subcategory}
+                    </option>`;
+                    });
+                    document.getElementById('subcategory').innerHTML = options;
+                }
+            });
+        };
+        // Call on page load to pre-select values
+        window.onload = categoryChange;
+    </script>
+
+    <%- include('../footer') %>
