@@ -57,10 +57,16 @@
                                       Subcategory
                                   </label>
                                   <div class="col-sm-9">
-                                      <select name="subcategory" id="subcategory" class="form-control">
-                                          <option>---select subcategory---</option>
-                                      </select>
-                                  </div>
+                                    <select name="category" id="category" onchange="subcategoryChange()"
+                                            class="form-control">
+                                        <option>---select category---</option>
+                                        <% subcategory.map((val) => { %>
+                                            <option value="<%= val?.id %>">
+                                                <%= val?.subcategory %>
+                                            </option>
+                                        <% }) %>
+                                    </select>
+                                </div>
                               </div>
 
                               <div class="form-group row">
