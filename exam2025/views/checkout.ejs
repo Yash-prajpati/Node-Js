@@ -1,0 +1,280 @@
+<%- include('partials/header') %>
+
+<div class="checkout-container">
+    <div class="checkout-content">
+        <div class="shipping-section">
+            <div class="section-header">
+                <i class="fas fa-shipping-fast"></i>
+                <h2>Checkout</h2>
+            </div>
+
+            <div class="checkout-form">
+                <form action="/checkout" method="POST">
+                    <div class="form-group">
+                        <div class="input-field">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="name" name="name" required>
+                            <label for="name">Full Name</label>
+                        </div>
+
+                        <div class="input-field">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <textarea id="address" name="address" required></textarea>
+                            <label for="address">Delivery Address</label>
+                        </div>
+
+                        <div class="input-field">
+                            <i class="fas fa-phone"></i>
+                            <input type="tel" id="phone" name="phone" required>
+                            <label for="phone">Phone Number</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="place-order-btn">
+                        <i class="fas fa-check-circle"></i>
+                        Complete Order
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="order-summary">
+            <div class="summary-header">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Order Summary</h3>
+            </div>
+
+            <div class="cart-items">
+                <% let total = 0 %>
+                <% cartItems.forEach(item => { %>
+                    <div class="cart-item">
+                        <div class="item-info">
+                            <img src="<%= item.image %>" alt="<%= item.name %>">
+                            <div class="item-details">
+                                <h4><%= item.name %></h4>
+                                <span class="quantity">Qty: <%= item.quantity %></span>
+                            </div>
+                        </div>
+                        <div class="item-price">$<%= (item.price * item.quantity).toFixed(2) %></div>
+                    </div>
+                    <% total += item.price * item.quantity %>
+                <% }) %>
+            </div>
+
+            <div class="price-details">
+                <div class="price-row">
+                    <span>Subtotal</span>
+                    <span>$<%= total.toFixed(2) %></span>
+                </div>
+                <div class="price-row">
+                    <span>Shipping</span>
+                    <span>Free</span>
+                </div>
+                <div class="price-row total">
+                    <span>Total</span>
+                    <span>$<%= total.toFixed(2) %></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .checkout-container {
+        min-height: 100vh;
+        padding: 2rem;
+        background: #f8f9fa;
+    }
+
+    .checkout-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 2rem;
+    }
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .section-header i {
+        font-size: 1.5rem;
+        color: #4a90e2;
+    }
+
+    .shipping-section {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .input-field {
+        position: relative;
+        margin-bottom: 1.5rem;
+    }
+
+    .input-field i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #666;
+    }
+
+    .input-field input,
+    .input-field textarea {
+        width: 100%;
+        padding: 15px 15px 15px 45px;
+        border: 1px solid #e1e1e1;
+        border-radius: 10px;
+        background: #f8f9fa;
+        font-size: 16px;
+        transition: all 0.3s;
+    }
+
+    .input-field textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    .input-field label {
+        position: absolute;
+        left: 45px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #666;
+        transition: all 0.3s;
+        pointer-events: none;
+    }
+
+    .input-field input:focus,
+    .input-field textarea:focus {
+        outline: none;
+        border-color: #4a90e2;
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+    }
+
+    .input-field input:focus + label,
+    .input-field input:valid + label,
+    .input-field textarea:focus + label,
+    .input-field textarea:valid + label {
+        top: 0;
+        left: 15px;
+        font-size: 12px;
+        background: white;
+        padding: 0 5px;
+    }
+
+    .place-order-btn {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(45deg, #4a90e2, #63b3ed);
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .place-order-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+    }
+
+    .order-summary {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .summary-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .summary-header i {
+        color: #4a90e2;
+    }
+
+    .cart-items {
+        margin-bottom: 2rem;
+    }
+
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid #e1e1e1;
+    }
+
+    .item-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .item-info img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .item-details h4 {
+        margin: 0;
+        font-size: 1rem;
+    }
+
+    .quantity {
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    .price-details {
+        margin-top: 2rem;
+    }
+
+    .price-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        color: #666;
+    }
+
+    .price-row.total {
+        border-top: 2px solid #e1e1e1;
+        padding-top: 1rem;
+        margin-top: 1rem;
+        font-weight: bold;
+        color: #333;
+        font-size: 1.2rem;
+    }
+
+    @media (max-width: 968px) {
+        .checkout-content {
+            grid-template-columns: 1fr;
+        }
+
+        .checkout-container {
+            padding: 1rem;
+        }
+    }
+</style>
+
+<%- include('partials/footer') %>

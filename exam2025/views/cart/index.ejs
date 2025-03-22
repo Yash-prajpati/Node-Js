@@ -1,9 +1,10 @@
 <%- include('../partials/header') %>
 
-    <h2>Shopping Cart</h2>
+<div class="cart-wrapper">
+    <h2 class="cart-title"><i class="fas fa-shopping-cart"></i> Shopping Cart</h2>
 
-    <% if (products && products.length> 0) { %>
-        <div class="table-responsive">
+    <% if (products && products.length > 0) { %>
+        <div class="table-responsive cart-table">
             <table class="table">
                 <thead>
                     <tr>
@@ -16,45 +17,314 @@
                 </thead>
                 <tbody>
                     <% products.forEach(function(product) { %>
-                        <tr>
-                            <td>
-                                <img src="<%= product.image %>" alt="<%= product.name %>" style="width: 50px;">
-                                <%= product.name %>
+                        <tr class="cart-item">
+                            <td class="product-info">
+                                <img src="<%= product.image %>" alt="<%= product.name %>" class="product-image">
+                                <span class="product-name"><%= product.name %></span>
                             </td>
-                            <td>$<%= product.price %>
+                            <td class="price-cell">$<%= product.price %></td>
+                            <td class="quantity-cell">
+                                <div class="quantity-wrapper">
+                                    <input type="number" value="<%= product.quantity %>" 
+                                           min="1" max="<%= product.qty %>"
+                                           class="form-control cart-quantity" 
+                                           data-product-id="<%= product._id %>" 
+                                           readonly>
+                                </div>
                             </td>
-                            <td>
-                                <input type="number" value="<%= product.quantity %>" min="1" max="<%= product.qty %>"
-                                    class="form-control cart-quantity" data-product-id="<%= product._id %>" readonly>
-                            </td>
-                            <td>$<%= (product.price * product.quantity).toFixed(2) %>
-                            </td>
-                            <td>
-                                <form action="/cart/remove/<%= product._id %>" method="POST">
-                                    <button type="submit" class="btn btn-danger btn-sm">Remove</button>
-                                </form>
+                            <td class="total-cell">$<%= (product.price * product.quantity).toFixed(2) %></td>
+                            <td class="action-cell">
+                                <button class="remove-btn" onclick="confirmDelete('<%= product._id %>')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
                             </td>
                         </tr>
-                        <% }); %>
+                    <% }); %>
                 </tbody>
                 <tfoot>
-                    <tr>
+                    <tr class="cart-total">
                         <td colspan="3" class="text-right"><strong>Total:</strong></td>
-                        <td>$<%= products.reduce((total, product)=> total + (product.price * product.quantity),
-                                0).toFixed(2) %></td>
+                        <td>$<%= products.reduce((total, product) => total + (product.price * product.quantity), 0).toFixed(2) %></td>
                         <td></td>
                     </tr>
                 </tfoot>
             </table>
         </div>
-        <div class="text-right mt-3">
-            <a href="/products" class="btn btn-primary">Continue Shopping</a>
-            <a href="/checkout" class="btn btn-success">Checkout</a>
+        <div class="cart-actions">
+            <a href="/products" class="continue-shopping">
+                <i class="fas fa-arrow-left"></i> Continue Shopping
+            </a>
+            <a href="/checkout" class="checkout-btn">
+                Proceed to Checkout <i class="fas fa-arrow-right"></i>
+            </a>
         </div>
-        <% } else { %>
-            <div class="alert alert-info">
-                Your cart is empty. <a href="/products">Continue shopping</a>
-            </div>
-            <% } %>
+    <% } else { %>
+        <div class="empty-cart">
+            <i class="fas fa-shopping-basket"></i>
+            <p>Your cart is empty.</p>
+            <a href="/products" class="continue-shopping">Start Shopping</a>
+        </div>
+    <% } %>
+</div>
 
-                <%- include('../partials/footer') %>
+<!-- Add this before closing body tag -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <h3>Delete Item</h3>
+        <p>Are you sure you want to delete this item from your cart?</p>
+        <div class="modal-actions">
+            <form id="deleteForm" action="/cart/remove/" method="POST">
+                <button type="button" class="cancel-btn" onclick="closeModal()">Cancel</button>
+                <button type="submit" class="delete-btn">Delete</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Add these new styles */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 400px;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .modal-actions {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .cancel-btn, .delete-btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .cancel-btn {
+        background: #f7fafc;
+        border: 1px solid #e2e8f0;
+        color: #4a5568;
+    }
+
+    .delete-btn {
+        background: #e53e3e;
+        border: none;
+        color: white;
+    }
+
+    .cancel-btn:hover {
+        background: #e2e8f0;
+    }
+
+    .delete-btn:hover {
+        background: #c53030;
+    }
+</style>
+
+<script>
+    function confirmDelete(productId) {
+        const modal = document.getElementById('deleteModal');
+        const deleteForm = document.getElementById('deleteForm');
+        deleteForm.action = `/cart/remove/${productId}`;
+        modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('deleteModal');
+        modal.style.display = 'none';
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        const modal = document.getElementById('deleteModal');
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+</script>
+
+<style>
+    .cart-wrapper {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+
+    .cart-title {
+        color: #2d3748;
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .cart-table {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+
+    .table {
+        margin-bottom: 0;
+    }
+
+    .table thead {
+        background: #f8f9fa;
+    }
+
+    .table th {
+        padding: 1rem;
+        border-top: none;
+        color: #4a5568;
+        font-weight: 600;
+    }
+
+    .cart-item td {
+        padding: 1rem;
+        vertical-align: middle;
+    }
+
+    .product-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .product-image {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .product-name {
+        color: #2d3748;
+        font-weight: 500;
+    }
+
+    .quantity-wrapper {
+        width: 100px;
+        margin: 0 auto;
+    }
+
+    .cart-quantity {
+        text-align: center;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 0.5rem;
+    }
+
+    .remove-btn {
+        border: none;
+        background: none;
+        color: #e53e3e;
+        padding: 0.5rem;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+
+    .remove-btn:hover {
+        color: #c53030;
+    }
+
+    .cart-total td {
+        padding: 1rem;
+        border-top: 2px solid #e2e8f0;
+    }
+
+    .cart-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .continue-shopping, .checkout-btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s;
+    }
+
+    .continue-shopping {
+        background: #f7fafc;
+        color: #4a5568;
+        border: 1px solid #e2e8f0;
+    }
+
+    .checkout-btn {
+        background: linear-gradient(45deg, #4a90e2, #63b3ed);
+        color: white;
+    }
+
+    .continue-shopping:hover {
+        background: #e2e8f0;
+        color: #2d3748;
+    }
+
+    .checkout-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(74, 144, 226, 0.2);
+        color: white;
+    }
+
+    .empty-cart {
+        text-align: center;
+        padding: 4rem;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .empty-cart i {
+        font-size: 4rem;
+        color: #a0aec0;
+        margin-bottom: 1rem;
+    }
+
+    .empty-cart p {
+        color: #4a5568;
+        margin-bottom: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        .product-info {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .cart-actions {
+            flex-direction: column;
+        }
+
+        .continue-shopping, .checkout-btn {
+            justify-content: center;
+        }
+    }
+</style>
+
+<%- include('../partials/footer') %>
